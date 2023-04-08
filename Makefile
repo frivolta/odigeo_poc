@@ -3,4 +3,7 @@ build-dev:
 run-dev:
 	docker compose -f docker-compose.yml up
 
-.PHONY: build-dev, run-dev
+build-production:
+    npm run build
+
+.PHONY: build-dev, run-dev, build-production
