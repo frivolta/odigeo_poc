@@ -21,7 +21,7 @@ const initialState: ItineraryState = {
 // GET - Get itineraries
 export const getItineraries = createAsyncThunk("itinerary/fetch", async () => {
   //@ToDo: should be in a constant
-  const response = await fetch("/getItineraries", {
+  const response = await fetch(`/api/getItineraries`, {
     method: "GET",
   });
   const data = response.json();

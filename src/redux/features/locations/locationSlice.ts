@@ -1,3 +1,4 @@
+import { RootState } from "@/redux/store";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Location state
@@ -13,7 +14,7 @@ const initialState: LocationState = {
 // GET - Get locations
 export const getLocations = createAsyncThunk("location/fetch", async () => {
   //@ToDo: should be in a constant
-  const response = await fetch("/getLocations", {
+  const response = await fetch(`/api/getLocations`, {
     method: "GET",
   });
   const data = response.json();
@@ -31,4 +32,6 @@ export const LocationSlice = createSlice({
   },
 });
 
+export const selectAllLocations = (state: RootState) =>
+  state.locations.locations;
 export default LocationSlice.reducer;
