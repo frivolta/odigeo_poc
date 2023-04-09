@@ -11,7 +11,12 @@ import {
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import { getItineraries } from "@/redux/features/itineraries/itinerariesSlice";
+import {
+  getItineraries,
+  selectAllItineraries,
+} from "@/redux/features/itineraries/itinerariesSlice";
+import SearchForm from "@/widgets/SearchForm";
+import ResultsList from "@/widgets/ResultsList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +24,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const locations = useSelector((state: RootState) =>
     selectAllLocations(state)
+  );
+  const itineraries = useSelector((state: RootState) =>
+    selectAllItineraries(state)
   );
 
   // @ToDo: https://redux.js.org/tutorials/essentials/part-5-async-logic handle statuses
@@ -32,20 +40,16 @@ export default function Home() {
     <>
       <Container>
         <Row className="justify-content-md-center">
-          <Col xs lg="2">
-            1 of 3
-          </Col>
-          <Col md="auto">Variable width content</Col>
-          <Col xs lg="2">
-            3 of 3
-          </Col>
-        </Row>
-        <Row>
-          <Col>1 of 3</Col>
-          <Col md="auto">Variable width content</Col>
-          <Col xs lg="2">
-            3 of 3
-          </Col>
+          {/*ToDo: Should handle this component with loading or suspence*/}
+          {locations ? (
+            <SearchForm
+              locations={locations}
+              onSubmit={() => {
+                console.log("submitted");
+              }}
+            />
+          ) : null}
+          {itineraries ? <ResultsList itineraries={itineraries} /> : null}
         </Row>
       </Container>
     </>

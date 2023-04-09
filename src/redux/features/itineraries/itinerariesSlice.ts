@@ -1,3 +1,4 @@
+import { RootState } from "@/redux/store";
 import { CustomError } from "@/types/common/CustomError";
 import { Itinerary } from "@/types/models/Itinerary";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -55,4 +56,6 @@ export const ItinerarySlice = createSlice({
   },
 });
 
+export const selectAllItineraries = (state: RootState) =>
+  state.itineraries.itineraries;
 export default ItinerarySlice.reducer;
