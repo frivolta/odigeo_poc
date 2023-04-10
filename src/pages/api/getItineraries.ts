@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Itinerary } from "../../types/models/Itinerary";
+import { DraftItinerary, Itinerary } from "../../types/models/Itinerary";
 import itinerariesData from "./data/itineraries.json";
 
-type ApiItinerariesResponse = Itinerary[];
+type ApiItinerariesResponse = DraftItinerary[];
 
 export default function handler(
   req: NextApiRequest,

@@ -12,6 +12,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface ItineraryState {
   itineraries: Itinerary[];
   filteredItineraries: Itinerary[];
+  isFiltered: boolean;
   loading: boolean;
   error: CustomError;
 }
@@ -20,6 +21,7 @@ interface ItineraryState {
 const initialState: ItineraryState = {
   itineraries: [],
   filteredItineraries: [],
+  isFiltered: false,
   loading: false,
   error: { hasError: false, messages: [] },
 };
@@ -60,7 +62,7 @@ export const ItinerarySlice = createSlice({
           matchesDepartureDate
         );
       });
-      console.log(state.filteredItineraries);
+      state.isFiltered = true;
     },
   },
   extraReducers: (builder) => {
@@ -88,7 +90,7 @@ export const ItinerarySlice = createSlice({
 
 export const { filterItineraries } = ItinerarySlice.actions;
 export const selectAllItineraries = (state: RootState) =>
-  state.itineraries.filteredItineraries.length > 0
+  state.itineraries.isFiltered
     ? state.itineraries.filteredItineraries
     : state.itineraries.itineraries;
 export default ItinerarySlice.reducer;

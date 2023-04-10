@@ -39,7 +39,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getLocations() as unknown as AnyAction);
     dispatch(getItineraries() as unknown as AnyAction);
-  }, []);
+  }, [dispatch]);
 
   console.log("Locations: ", locations);
   return (
