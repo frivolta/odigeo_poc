@@ -12,11 +12,13 @@ import { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
 import {
+  filterItineraries,
   getItineraries,
   selectAllItineraries,
 } from "@/redux/features/itineraries/itinerariesSlice";
 import SearchForm from "@/widgets/SearchForm";
 import ResultsList from "@/widgets/ResultsList";
+import { SearchCriteria } from "@/types/common/SearchCriteria";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +31,10 @@ export default function Home() {
     selectAllItineraries(state)
   );
 
+  //@ToDo: Use callback
+  const searchItineraries = (searchCriteria: SearchCriteria) => {
+    dispatch(filterItineraries(searchCriteria));
+  };
   // @ToDo: https://redux.js.org/tutorials/essentials/part-5-async-logic handle statuses
   useEffect(() => {
     dispatch(getLocations() as unknown as AnyAction);
@@ -42,12 +48,7 @@ export default function Home() {
         <Row className="justify-content-md-center">
           {/*ToDo: Should handle this component with loading or suspence*/}
           {locations ? (
-            <SearchForm
-              locations={locations}
-              onSubmit={() => {
-                console.log("submitted");
-              }}
-            />
+            <SearchForm locations={locations} onSubmit={searchItineraries} />
           ) : null}
           {itineraries ? <ResultsList itineraries={itineraries} /> : null}
         </Row>

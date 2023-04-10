@@ -1,12 +1,14 @@
-import Select from "react-select";
+import Select, { GroupBase } from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { FC, FormEvent, useState } from "react";
+import { SearchCriteria } from "@/types/common/SearchCriteria";
+import { Location } from "@/types/models/Location";
 
 interface SearchFormProps {
   locations: Location[];
-  onSubmit: () => void;
+  onSubmit: (searchCriteria: SearchCriteria) => void;
 }
 
 const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
@@ -19,7 +21,11 @@ const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit();
+    onSubmit({
+      departureDate: departureDate?.toString(),
+      arrivalLocation: arrivalLocation?.value ?? undefined,
+      departureLocation: departureLocation?.value ?? undefined,
+    });
   };
 
   //@ToDo: Refactor to components

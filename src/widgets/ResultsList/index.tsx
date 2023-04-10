@@ -22,7 +22,7 @@ const ResultsList: FC<ResultsListProps> = ({ itineraries }) => {
         </thead>
         <tbody>
           {itineraries.map((itinerary) => (
-            <tr key={itinerary.price}>
+            <tr key={itinerary.id}>
               <td>{itinerary.price}</td>
               <td>{itinerary.departureLocation}</td>
               <td>{itinerary.arrivalLocation}</td>

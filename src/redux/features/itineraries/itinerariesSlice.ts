@@ -1,6 +1,11 @@
 import { RootState } from "@/redux/store";
 import { CustomError } from "@/types/common/CustomError";
-import { Itinerary } from "@/types/models/Itinerary";
+import { SearchCriteria } from "@/types/common/SearchCriteria";
+import {
+  DraftItinerary,
+  Itinerary,
+  addIdToItineraries,
+} from "@/types/models/Itinerary";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // Location state
@@ -25,14 +30,39 @@ export const getItineraries = createAsyncThunk("itinerary/fetch", async () => {
   const response = await fetch(`/api/getItineraries`, {
     method: "GET",
   });
-  const data = response.json();
-  return data;
+  const data: DraftItinerary[] = await response.json();
+  return addIdToItineraries(data);
 });
 
 export const ItinerarySlice = createSlice({
   name: "itinerary",
   initialState,
-  reducers: {},
+  reducers: {
+    filterItineraries: (state, action: PayloadAction<SearchCriteria>) => {
+      const { departureLocation, arrivalLocation, departureDate } =
+        action.payload;
+
+      state.filteredItineraries = state.itineraries.filter((itinerary) => {
+        const matchesDepartureLocation =
+          !departureLocation ||
+          itinerary.departureLocation.toLowerCase() === departureLocation;
+        const matchesArrivalLocation =
+          !arrivalLocation ||
+          itinerary.arrivalLocation.toLowerCase() === arrivalLocation;
+        //@ToDo: this can cause problems
+        const matchesDepartureDate =
+          !departureDate ||
+          itinerary.departureDate.toString() === departureDate;
+
+        return (
+          matchesDepartureLocation &&
+          matchesArrivalLocation &&
+          matchesDepartureDate
+        );
+      });
+      console.log(state.filteredItineraries);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getItineraries.fulfilled, (state, action) => {
       state.error = { hasError: false, messages: [] };
@@ -56,6 +86,9 @@ export const ItinerarySlice = createSlice({
   },
 });
 
+export const { filterItineraries } = ItinerarySlice.actions;
 export const selectAllItineraries = (state: RootState) =>
-  state.itineraries.itineraries;
+  state.itineraries.filteredItineraries.length > 0
+    ? state.itineraries.filteredItineraries
+    : state.itineraries.itineraries;
 export default ItinerarySlice.reducer;
