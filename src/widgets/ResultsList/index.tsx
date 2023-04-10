@@ -1,12 +1,13 @@
+import { formatDateTime } from "@/types/common/DateTime";
 import { Itinerary } from "@/types/models/Itinerary";
-import React, { FC } from "react";
+import React, { FC, memo, useCallback } from "react";
 import { Container, Table } from "react-bootstrap";
 
 interface ResultsListProps {
   itineraries: Itinerary[];
 }
 
-const ResultsList: FC<ResultsListProps> = ({ itineraries }) => {
+const ResultsList: FC<ResultsListProps> = memo(({ itineraries }) => {
   return (
     <Container>
       <Table responsive striped bordered hover>
@@ -26,8 +27,8 @@ const ResultsList: FC<ResultsListProps> = ({ itineraries }) => {
               <td>{itinerary.price}</td>
               <td>{itinerary.departureLocation}</td>
               <td>{itinerary.arrivalLocation}</td>
-              <td>{itinerary.departureDate.toString()}</td>
-              <td>{itinerary.arrivalDate.toString()}</td>
+              <td>{formatDateTime(itinerary.departureDate)}</td>
+              <td>{formatDateTime(itinerary.arrivalDate)}</td>
               <td>{itinerary.carrier}</td>
             </tr>
           ))}
@@ -35,6 +36,6 @@ const ResultsList: FC<ResultsListProps> = ({ itineraries }) => {
       </Table>
     </Container>
   );
-};
+});
 
 export default ResultsList;

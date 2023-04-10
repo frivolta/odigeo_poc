@@ -22,7 +22,7 @@ const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit({
-      departureDate: departureDate?.toString(),
+      departureDate: departureDate ?? undefined,
       arrivalLocation: arrivalLocation?.value ?? undefined,
       departureLocation: departureLocation?.value ?? undefined,
     });
@@ -62,7 +62,7 @@ const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
                 selected={departureDate}
                 onChange={(date) => setDepartureDate(date)}
                 dateFormat="yyyy-MM-dd"
-                minDate={new Date()}
+                minDate={new Date(2018)}
                 className="form-control"
               />
             </Form.Group>

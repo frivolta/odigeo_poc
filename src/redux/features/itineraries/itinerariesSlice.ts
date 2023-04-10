@@ -1,5 +1,6 @@
 import { RootState } from "@/redux/store";
 import { CustomError } from "@/types/common/CustomError";
+import { compareDates, parseDateTime } from "@/types/common/DateTime";
 import { SearchCriteria } from "@/types/common/SearchCriteria";
 import {
   DraftItinerary,
@@ -54,8 +55,7 @@ export const ItinerarySlice = createSlice({
         //@ToDo: this can cause problems
         const matchesDepartureDate =
           !departureDate ||
-          itinerary.departureDate.toString() === departureDate;
-
+          compareDates(itinerary.departureDate, parseDateTime(departureDate));
         return (
           matchesDepartureLocation &&
           matchesArrivalLocation &&

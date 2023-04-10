@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import { DateTime } from "@/types/common/DateTime";
 
 export interface Itinerary {
   id: string;
