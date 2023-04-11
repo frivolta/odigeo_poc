@@ -41,7 +41,6 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         ...base,
         width: "100%",
         borderRadius: "15px",
-        backgroundColor: "red",
         overflow: "hidden",
       };
     },
