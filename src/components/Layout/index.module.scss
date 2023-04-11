@@ -1,0 +1,16 @@
+@import '@/styles/variables';
+
+.Container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.NavBar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    background-color: $color-light;
+}

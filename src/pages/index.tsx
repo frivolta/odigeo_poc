@@ -1,58 +1,45 @@
-import styles from "../styles/Home.module.scss";
 import { Inter } from "next/font/google";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getLocations,
-  selectAllLocations,
-} from "@/redux/features/locations/locationSlice";
+import SearchForm from "@/widgets/SearchForm";
+import useLocations from "@/lib/hooks/useLocations/useLocations";
+import Layout from "@/components/Layout";
+import { Col, Row } from "react-bootstrap";
+import Logo from "@/lib/assets/images/logo-std.svg";
 import { RootState } from "@/redux/store";
-import { useEffect } from "react";
-import { AnyAction } from "@reduxjs/toolkit";
 import {
-  filterItineraries,
   getItineraries,
   selectAllItineraries,
 } from "@/redux/features/itineraries/itinerariesSlice";
-import SearchForm from "@/widgets/SearchForm";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AnyAction } from "@reduxjs/toolkit";
 import ResultsList from "@/widgets/ResultsList";
-import { SearchCriteria } from "@/types/common/SearchCriteria";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [locations, searchItineraries] = useLocations();
   const dispatch = useDispatch();
-  const locations = useSelector((state: RootState) =>
-    selectAllLocations(state)
-  );
   const itineraries = useSelector((state: RootState) =>
     selectAllItineraries(state)
   );
 
-  //@ToDo: Use callback
-  const searchItineraries = (searchCriteria: SearchCriteria) => {
-    dispatch(filterItineraries(searchCriteria));
-  };
-  // @ToDo: https://redux.js.org/tutorials/essentials/part-5-async-logic handle statuses
   useEffect(() => {
-    dispatch(getLocations() as unknown as AnyAction);
     dispatch(getItineraries() as unknown as AnyAction);
   }, [dispatch]);
-
-  console.log("Locations: ", locations);
   return (
-    <>
-      <Container>
-        <Row className="justify-content-md-center">
+    <Layout logo={Logo}>
+      <Row className="flex-column h-100 g-0">
+        <Col
+          xs={12}
+          className="h-100 d-flex justify-content-center align-items-center"
+        >
           {/*ToDo: Should handle this component with loading or suspence*/}
           {locations ? (
             <SearchForm locations={locations} onSubmit={searchItineraries} />
           ) : null}
+        </Col>
+        <Col xs={12} className="h-100">
           {itineraries ? <ResultsList itineraries={itineraries} /> : null}
-        </Row>
-      </Container>
-    </>
+        </Col>
+      </Row>
+    </Layout>
   );
 }

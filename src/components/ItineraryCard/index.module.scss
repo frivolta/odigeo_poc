@@ -1,0 +1,69 @@
+@import '@/styles/variables';
+
+.ItineraryCard{
+    background-color: $color-light;
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+}
+.ItineraryCardSpacer{
+    height: 1px;
+    min-width: 150px;
+    background-color: $color-dark-alt;
+}
+.ItineraryCardLocation{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    min-width: 25%;
+}
+.ItineraryCardLocationWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.ItineraryCardLocationLabel{
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+}
+.ItineraryCardLocationTitle{
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+    margin-bottom: 0.6rem;
+}
+.ItineraryCardLocationText{
+    font-size: 1rem;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark-alt;
+}
+
+.ItineraryCardPriceWrapper{
+
+}
+.ItineraryCardPrice{
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+    padding: 2rem;
+    min-width: 25%;
+    text-align: right;
+}
+.ItineraryCardPriceTitle{
+    font-size: 1.2rem;
+}
+.ItineraryCardPriceText{
+    font-size: 1.6rem;
+}

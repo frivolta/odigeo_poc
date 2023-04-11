@@ -1,0 +1,21 @@
+@import '@/styles/variables';
+
+.SearchForm{
+    background-color: $color-primary;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SearchFormInputs{
+   display: grid;
+   grid-template-columns:  1fr;
+   grid-template-rows: auto;
+   grid-gap: 1rem;
+    @media (min-width: $breakpoint-sm){
+        grid-template-columns: repeat(3, 3fr) 1fr;
+        grid-template-rows: auto;
+    }
+}
