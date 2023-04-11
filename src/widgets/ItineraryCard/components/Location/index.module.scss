@@ -1,0 +1,31 @@
+@import '@/styles/variables';
+
+.ItineraryCardLocation{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    min-width: 25%;
+}
+
+.ItineraryCardLocationLabel{
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+}
+.ItineraryCardLocationTitle{
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+    margin-bottom: 0.6rem;
+}
+.ItineraryCardLocationText{
+    font-size: 1rem;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark-alt;
+}

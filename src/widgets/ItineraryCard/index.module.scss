@@ -1,0 +1,28 @@
+@import '@/styles/variables';
+
+.ItineraryCard{
+    background-color: $color-light;
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    flex-direction: column;
+    @media (min-width: $breakpoint-md){
+        flex-direction: row;
+    }
+}
+.ItineraryCardSpacer{
+    height: 1px;
+    min-width: 150px;
+    background-color: $color-dark-alt;
+}
+.ItineraryCardLocationWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    @media (min-width: $breakpoint-md){
+        flex-direction: row;
+    }
+}

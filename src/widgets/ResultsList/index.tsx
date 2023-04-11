@@ -1,4 +1,4 @@
-import ItineraryCard from "@/components/ItineraryCard";
+import ItineraryCard from "@/widgets/ItineraryCard";
 import { formatDateTime } from "@/types/common/DateTime";
 import { Itinerary } from "@/types/models/Itinerary";
 import React, { FC, memo, useCallback } from "react";

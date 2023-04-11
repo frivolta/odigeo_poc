@@ -1,0 +1,21 @@
+@import '@/styles/variables';
+
+.ItineraryCardPriceWrapper{
+
+}
+.ItineraryCardPrice{
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: $color-dark;
+    padding: 2rem;
+    min-width: 25%;
+    text-align: right;
+}
+.ItineraryCardPriceTitle{
+    font-size: 1.2rem;
+}
+.ItineraryCardPriceText{
+    font-size: 1.6rem;
+}
