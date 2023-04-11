@@ -5,10 +5,30 @@ import { Col, Row } from "react-bootstrap";
 import Logo from "@/lib/assets/images/logo-std.svg";
 import ResultsList from "@/widgets/ResultsList";
 import useItineraries from "@/lib/hooks/useItineraries/useItineraries";
+import { useMemo, useState } from "react";
+import CustomPagination from "@/components/CustomPagination";
+
+const ITEMS_PER_PAGE = 10;
+const MAX_VISIBLE_PAGES = 5;
 
 export default function Home() {
   const [locations, searchItineraries] = useLocations();
   const [allItineraries] = useItineraries();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Get current itineraries
+  const indexOfLastItinerary = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItinerary = indexOfLastItinerary - ITEMS_PER_PAGE;
+  const currentItineraries = useMemo(
+    () => allItineraries.slice(indexOfFirstItinerary, indexOfLastItinerary),
+    [allItineraries, currentPage]
+  );
+
+  const totalPages = Math.ceil(allItineraries.length / ITEMS_PER_PAGE);
+
+  // Change page
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <Layout logo={Logo}>
       <Row className="flex-column h-100 g-0">
@@ -22,7 +42,19 @@ export default function Home() {
           ) : null}
         </Col>
         <Col xs={12} className="h-100">
-          {allItineraries ? <ResultsList itineraries={allItineraries} /> : null}
+          {currentItineraries ? (
+            <ResultsList itineraries={currentItineraries} />
+          ) : null}
+        </Col>
+      </Row>{" "}
+      <Row>
+        <Col xs={12} className="d-flex justify-content-center">
+          <CustomPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            maxVisiblePages={MAX_VISIBLE_PAGES}
+            onPageChange={paginate}
+          />
         </Col>
       </Row>
     </Layout>
