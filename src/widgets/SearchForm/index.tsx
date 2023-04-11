@@ -1,10 +1,11 @@
-import Select, { GroupBase } from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
-import { FC, FormEvent, useState } from "react";
+import { FC } from "react";
 import { SearchCriteria } from "@/types/common/SearchCriteria";
 import { Location } from "@/types/models/Location";
+import CustomSelect from "@/components/CustomSelect";
+import useSearchForm from "./hooks/useSearchForm";
 
 interface SearchFormProps {
   locations: Location[];
@@ -12,55 +13,38 @@ interface SearchFormProps {
 }
 
 const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
-  //@ToDo: This should be a custom hook
-  const [departureLocation, setDepartureLocation] = useState<Location | null>(
-    null
-  );
-  const [arrivalLocation, setArrivalLocation] = useState<Location | null>(null);
-  const [departureDate, setDepartureDate] = useState<Date | null>(null);
+  const formState = useSearchForm(onSubmit);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit({
-      departureDate: departureDate ?? undefined,
-      arrivalLocation: arrivalLocation?.value ?? undefined,
-      departureLocation: departureLocation?.value ?? undefined,
-    });
-  };
-
-  //@ToDo: Refactor to components
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={formState.handleSubmit}>
         <Row>
           <Col md={3}>
-            <Form.Group controlId="departureLocation">
-              <Form.Label>Departure Location</Form.Label>
-              <Select
-                options={locations}
-                value={departureLocation}
-                onChange={setDepartureLocation}
-                placeholder="Select departure location"
-              />
-            </Form.Group>
+            <CustomSelect
+              controlId="departureLocation"
+              label="Departure Location"
+              options={locations}
+              value={formState.departureLocation}
+              onChange={formState.setDepartureLocation}
+              placeholder="Select departure location"
+            />
           </Col>
           <Col md={3}>
-            <Form.Group controlId="arrivalLocation">
-              <Form.Label>Arrival Location</Form.Label>
-              <Select
-                options={locations}
-                value={arrivalLocation}
-                onChange={setArrivalLocation}
-                placeholder="Select arrival location"
-              />
-            </Form.Group>
+            <CustomSelect
+              controlId="arrivalLocation"
+              label="Arrival Location"
+              options={locations}
+              value={formState.arrivalLocation}
+              onChange={formState.setArrivalLocation}
+              placeholder="Select departure location"
+            />
           </Col>
           <Col md={3}>
             <Form.Group controlId="departureDate">
               <Form.Label>Departure Date</Form.Label>
               <DatePicker
-                selected={departureDate}
-                onChange={(date) => setDepartureDate(date)}
+                selected={formState.departureDate}
+                onChange={formState.setDepartureDate}
                 dateFormat="yyyy-MM-dd"
                 minDate={new Date(2018)}
                 className="form-control"
