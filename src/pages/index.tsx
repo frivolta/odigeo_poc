@@ -9,13 +9,12 @@ import { useMemo, useState } from "react";
 import CustomPagination from "@/components/CustomPagination";
 
 const ITEMS_PER_PAGE = 10;
-const MAX_VISIBLE_PAGES = 5;
+const MAX_DESKTOP_PAGES = 3;
 
 export default function Home() {
   const [locations, searchItineraries] = useLocations();
   const [allItineraries] = useItineraries();
   const [currentPage, setCurrentPage] = useState(1);
-
   // Get current itineraries
   const indexOfLastItinerary = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItinerary = indexOfLastItinerary - ITEMS_PER_PAGE;
@@ -52,7 +51,7 @@ export default function Home() {
           <CustomPagination
             currentPage={currentPage}
             totalPages={totalPages}
-            maxVisiblePages={MAX_VISIBLE_PAGES}
+            maxVisiblePages={MAX_DESKTOP_PAGES}
             onPageChange={paginate}
           />
         </Col>

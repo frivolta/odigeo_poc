@@ -14,3 +14,20 @@
     height: 56px;
     background-color: $color-light;
 }
+
+.Footer{
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-light;
+    padding: 2rem 6rem;
+    margin-top: 4rem;
+}
+
+.FooterText{
+    font-size: 0.8rem;
+    color: $color-dark-alt;
+}

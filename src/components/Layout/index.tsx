@@ -14,9 +14,15 @@ const Layout: FC<LayoutProps> = ({ children, logo }) => {
         <title>Odigeo Front-end Challange - Search</title>
       </Head>
       <header className={styles.NavBar}>
-        <Image src={logo} alt="Picture of the author" width={107} height={24} />
+        <Image src={logo} alt="edreams logo" width={107} height={24} />
       </header>
       <main className={styles.Main}>{children}</main>
+      <footer className={styles.Footer}>
+        <Image src={logo} alt="edreams logo" width={170} />
+        <span className={styles.FooterText}>
+          Front-end Challange, Filippo Rivolta. Not a company website.
+        </span>
+      </footer>
     </>
   );
 };

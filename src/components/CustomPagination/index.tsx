@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { Pagination } from "react-bootstrap";
 import usePagination from "./hooks/usePagination";
 import styles from "./index.module.scss";
+import useIsMobile from "./hooks/useIsMobile";
 interface CustomPaginationProps {
   currentPage: number;
   totalPages: number;
@@ -11,6 +12,7 @@ interface CustomPaginationProps {
 
 const CustomPagination: React.FC<CustomPaginationProps> = memo(
   ({ currentPage, totalPages, maxVisiblePages, onPageChange }) => {
+    const isMobile = useIsMobile();
     const visiblePages = usePagination({
       currentPage,
       totalPages,
@@ -27,16 +29,17 @@ const CustomPagination: React.FC<CustomPaginationProps> = memo(
           className={styles.PageItem}
           onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         />
-        {visiblePages.map((page) => (
-          <Pagination.Item
-            key={page}
-            active={page === currentPage}
-            onClick={() => onPageChange(page)}
-            className={styles.PageItem}
-          >
-            {page}
-          </Pagination.Item>
-        ))}
+        {!isMobile &&
+          visiblePages.map((page) => (
+            <Pagination.Item
+              key={page}
+              active={page === currentPage}
+              onClick={() => onPageChange(page)}
+              className={styles.PageItem}
+            >
+              {page}
+            </Pagination.Item>
+          ))}
         <Pagination.Next
           className={styles.PageItem}
           onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}

@@ -2,15 +2,17 @@
 
 /** Note: Styling react bootstrap is messy **/
 .PageItem{
-    padding:0 0.6rem;
+    padding:0 0.3rem;
+    max-width: 100%;
     a{
         color: $color-primary;
         background-color: $color-light;
         border-radius: $border-radius;
         font-weight: 600;
+
     }
     span{
         color: $color-primary;
         border-radius: $border-radius;
-    }
+    }   
 }
