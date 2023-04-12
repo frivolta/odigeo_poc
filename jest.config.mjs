@@ -11,7 +11,18 @@ const createJestConfig = nextJest({
 const config = {
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-
+  collectCoverage: true,
+  coverageReporters: ["text", "lcov", "html"], //
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}", // Adjust this pattern to match your project's file extensions
+    "!src/index.ts", // Example of excluding a specific file
+    "!src/**/*.test.{js,jsx,ts,tsx}", // Exclude test files
+  ],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/pages/", // Exclude node_modules
+    // Add other directories or files to exclude, if necessary
+  ],
   testEnvironment: "jest-environment-jsdom",
 };
 

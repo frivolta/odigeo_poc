@@ -11,6 +11,7 @@ export interface Option {
 interface CustomSelectProps {
   controlId: string;
   label?: string;
+  testid?: string;
   options: Option[];
   value: Option | null;
   onChange: (selectedOption: Option | null) => void;
@@ -24,6 +25,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   value,
   onChange,
   placeholder,
+  testid,
 }) => {
   // @Note: unfortunately, react-select doesn't support sass styling, a better approach would be to create it from scratch
   const styles: StylesConfig<Option, false> = {
@@ -59,6 +61,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     <Form.Group controlId={controlId}>
       {label && <Form.Label>{label}</Form.Label>}
       <Select
+        data-testid={testid}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,

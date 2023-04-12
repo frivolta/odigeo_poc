@@ -32,12 +32,12 @@ export function formatDateTime(dateTime: DateTime): string {
 
 // Convert date to a DateTime object
 export function parseDateTime(date: Date): DateTime {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const dayOfMonth = date.getDate();
-  const hourOfDay = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth();
+  const dayOfMonth = date.getUTCDate();
+  const hourOfDay = date.getUTCHours();
+  const minute = date.getUTCMinutes();
+  const second = date.getUTCSeconds();
 
   return {
     year,
@@ -48,7 +48,6 @@ export function parseDateTime(date: Date): DateTime {
     second,
   };
 }
-
 // Compare two DateTime objects
 export function compareDates(
   dateTime1: DateTime,
