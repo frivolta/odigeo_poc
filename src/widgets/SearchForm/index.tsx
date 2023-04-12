@@ -1,23 +1,30 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
 import { FC } from "react";
 import { SearchCriteria } from "@/types/common/SearchCriteria";
 import { Location } from "@/types/models/Location";
 import CustomSelect from "@/components/CustomSelect";
 import useSearchForm from "./hooks/useSearchForm";
 import styles from "./index.module.scss";
+import ActionCard from "@/components/ActionCard";
+import Button from "@/components/Button";
 
 interface SearchFormProps {
   locations: Location[];
   onSubmit: (searchCriteria: SearchCriteria) => void;
+  isLoading?: boolean;
 }
 
-const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
+const SearchForm: FC<SearchFormProps> = ({
+  locations,
+  onSubmit,
+  isLoading,
+}) => {
   const formState = useSearchForm(onSubmit);
 
   return (
-    <div className={styles.SearchForm}>
+    <ActionCard>
       <Container className={styles.SearchFormContainer}>
         <Form
           onSubmit={formState.handleSubmit}
@@ -47,12 +54,17 @@ const SearchForm: FC<SearchFormProps> = ({ locations, onSubmit }) => {
               placeholderText="Departure Date"
             />
           </Form.Group>
-          <Button type="submit" variant="primary">
-            Search
+          <Button
+            size="large"
+            color="secondary"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Search"}
           </Button>
         </Form>
       </Container>
-    </div>
+    </ActionCard>
   );
 };
 

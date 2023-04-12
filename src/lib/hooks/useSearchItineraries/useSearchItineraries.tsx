@@ -4,19 +4,17 @@ import {
   selectFilteredItineraries,
   selectIsLoading,
 } from "@/redux/features/itineraries/itinerariesSlice";
-import { SearchCriteria } from "@/types/common/SearchCriteria";
 import { RootState } from "@/redux/store";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { convertMillisecondsToDate } from "@/lib/utils/common";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Itinerary } from "@/types/models/Itinerary";
 import { CustomError } from "@/types/common/CustomError";
+import useSearchCriteria from "../useSearchCriteria/useSearchCriteria";
 
 const useSearchItineraries = (): [Itinerary[], boolean, CustomError] => {
   const dispatch = useDispatch();
-  const router = useRouter();
+  const searchParams = useSearchCriteria();
   const filteredItineraries = useSelector((state: RootState) =>
     selectFilteredItineraries(state)
   );
@@ -24,20 +22,8 @@ const useSearchItineraries = (): [Itinerary[], boolean, CustomError] => {
   const errors = useSelector((state: RootState) => selectErrors(state));
 
   useEffect(() => {
-    if (router.isReady) {
-      const { departureLocation, arrivalLocation, departureDate } =
-        router.query;
-
-      const searchCriteria: SearchCriteria = {
-        departureLocation: (departureLocation as string) ?? undefined,
-        arrivalLocation: (arrivalLocation as string) ?? undefined,
-        departureDate: departureDate
-          ? convertMillisecondsToDate(departureDate as string)
-          : undefined,
-      };
-      dispatch(getItineraries(searchCriteria) as unknown as AnyAction);
-    }
-  }, [router.isReady, router.query]);
+    dispatch(getItineraries(searchParams) as unknown as AnyAction);
+  }, [searchParams, dispatch]);
 
   return [filteredItineraries, isLoading, errors];
 };

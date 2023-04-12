@@ -7,6 +7,7 @@ import ResultsList from "@/widgets/ResultsList";
 import useItineraries from "@/lib/hooks/useAllItineraries/useAllItineraries";
 import CustomPagination from "@/components/CustomPagination";
 import { usePagination } from "@/lib/hooks/usePagination/usePagination";
+import Title from "@/components/Title";
 
 const ITEMS_PER_PAGE = 10;
 const MAX_DESKTOP_PAGES = 3;
@@ -28,13 +29,13 @@ export default function Home() {
   return (
     <Layout logo={Logo}>
       <Row className="flex-column h-100 g-0">
-        <Col
-          xs={12}
-          className="h-100 d-flex justify-content-center align-items-center"
-        >
-          {/*ToDo: Should handle this component with loading or suspence*/}
+        <Col xs={12} className="d-flex justify-content-start align-items-start">
           {locations ? (
-            <SearchForm locations={locations} onSubmit={searchItineraries} />
+            <SearchForm
+              locations={locations}
+              onSubmit={searchItineraries}
+              isLoading={isLoading}
+            />
           ) : null}
         </Col>
         <Col xs={12} className="h-100">
@@ -48,7 +49,7 @@ export default function Home() {
       </Row>
       <Row>
         <Col xs={12} className="d-flex justify-content-center">
-          {!isLoading && !errors.hasError && currentItineraries && (
+          {!isLoading && !errors.hasError && currentItineraries.length > 0 && (
             <CustomPagination
               currentPage={currentPage}
               totalPages={totalPages}

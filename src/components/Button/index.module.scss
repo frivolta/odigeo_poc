@@ -1,0 +1,56 @@
+@import '@/styles/variables';
+
+.Button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: $border-radius-rounded;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  
+    &.small {
+      padding: 4px 12px;
+      font-size: 12px;
+    }
+  
+    &.medium {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  
+    &.large {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  
+    &.solid {
+      &.primary {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: $color-light;
+  
+        &:hover {
+          background-color: $color-primary-alt;
+          border-color: $color-primary-alt;
+        }
+      }
+  
+      &.secondary {
+        background-color: $color-light;
+        border-color: $color-primary;
+        color: $color-primary;
+  
+        &:hover {
+          background-color: $color-secondary-light;
+        }
+      }
+    }
+  
+    /** To Be implemented */
+
+    &.outline {
+      background-color: transparent;
+    }
+  }
