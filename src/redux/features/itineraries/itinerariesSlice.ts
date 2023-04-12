@@ -28,49 +28,50 @@ const initialState: ItineraryState = {
 };
 
 // GET - Get itineraries
-export const getItineraries = createAsyncThunk("itinerary/fetch", async () => {
-  //@ToDo: should be in a constant
-  const response = await fetch(`/api/getItineraries`, {
-    method: "GET",
+export const getItineraries = createAsyncThunk(
+  "itinerary/fetch",
+  async (searchCriteria: SearchCriteria) => {
+    const response = await fetch(`/api/getItineraries`, {
+      method: "GET",
+    });
+    const data: DraftItinerary[] = await response.json();
+    const itineraries = addIdToItineraries(data);
+    return filterItineraries(itineraries, searchCriteria);
+  }
+);
+
+const filterItineraries = (
+  itineraries: Itinerary[],
+  searchCriteria: SearchCriteria
+) => {
+  const { departureLocation, arrivalLocation, departureDate } = searchCriteria;
+
+  return itineraries.filter((itinerary) => {
+    const matchesDepartureLocation =
+      !departureLocation ||
+      itinerary.departureLocation.toLowerCase() === departureLocation;
+    const matchesArrivalLocation =
+      !arrivalLocation ||
+      itinerary.arrivalLocation.toLowerCase() === arrivalLocation;
+    const matchesDepartureDate =
+      !departureDate ||
+      compareDates(itinerary.departureDate, parseDateTime(departureDate));
+    return (
+      matchesDepartureLocation && matchesArrivalLocation && matchesDepartureDate
+    );
   });
-  const data: DraftItinerary[] = await response.json();
-  return addIdToItineraries(data);
-});
+};
 
 export const ItinerarySlice = createSlice({
   name: "itinerary",
   initialState,
-  reducers: {
-    filterItineraries: (state, action: PayloadAction<SearchCriteria>) => {
-      const { departureLocation, arrivalLocation, departureDate } =
-        action.payload;
-
-      state.filteredItineraries = state.itineraries.filter((itinerary) => {
-        const matchesDepartureLocation =
-          !departureLocation ||
-          itinerary.departureLocation.toLowerCase() === departureLocation;
-        const matchesArrivalLocation =
-          !arrivalLocation ||
-          itinerary.arrivalLocation.toLowerCase() === arrivalLocation;
-        //@ToDo: this can cause problems
-        const matchesDepartureDate =
-          !departureDate ||
-          compareDates(itinerary.departureDate, parseDateTime(departureDate));
-        return (
-          matchesDepartureLocation &&
-          matchesArrivalLocation &&
-          matchesDepartureDate
-        );
-      });
-      state.isFiltered = true;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getItineraries.fulfilled, (state, action) => {
       state.error = { hasError: false, messages: [] };
       state.loading = false;
       state.itineraries = action.payload;
-      state.filteredItineraries = [];
+      state.filteredItineraries = action.payload;
     });
     builder.addCase(getItineraries.pending, (state, action) => {
       state.error = { hasError: false, messages: [] };
@@ -88,9 +89,9 @@ export const ItinerarySlice = createSlice({
   },
 });
 
-export const { filterItineraries } = ItinerarySlice.actions;
 export const selectAllItineraries = (state: RootState) =>
-  state.itineraries.isFiltered
-    ? state.itineraries.filteredItineraries
-    : state.itineraries.itineraries;
+  state.itineraries.itineraries;
+export const selectFilteredItineraries = (state: RootState) =>
+  state.itineraries.filteredItineraries;
+
 export default ItinerarySlice.reducer;
