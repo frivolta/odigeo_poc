@@ -8,7 +8,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { Location } from "@/types/models/Location";
 import { useDispatch, useSelector } from "react-redux";
 
-//@ToDo: isLoading locations, error handling
+//Note: This hook is not using loading and error management for the sake of simplicity
 const useLocations = (): [Location[]] => {
   const dispatch = useDispatch();
   const locations = useSelector((state: RootState) =>

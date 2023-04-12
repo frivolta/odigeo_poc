@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "./index.module.scss";
 import Image, { StaticImageData } from "next/image";
 
-interface LayoutProps {
+export interface LayoutProps {
   children: ReactNode;
   logo: StaticImageData;
   title?: string;

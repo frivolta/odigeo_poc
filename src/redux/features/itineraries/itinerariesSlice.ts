@@ -79,7 +79,7 @@ export const ItinerarySlice = createSlice({
       state.itineraries = [];
       state.filteredItineraries = [];
     });
-    // @ToDo: Custom error messages and refactor to const, add same to other reducers
+    // Note: Custom error handling should be implemented, not used just for the sake of example
     builder.addCase(getItineraries.rejected, (state, action) => {
       state.error = { hasError: true, messages: ["Something went wrong"] };
       state.loading = false;

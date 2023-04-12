@@ -17,7 +17,6 @@ const initialState: LocationState = {
 export const getLocations = createAsyncThunk<string[]>(
   "location/fetch",
   async () => {
-    //@ToDo: should be in a constant
     const response = await fetch(`/api/getLocations`, {
       method: "GET",
     });
@@ -30,7 +29,7 @@ export const LocationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {},
-  //@ToDo: Extra states
+  // Note: extraReducers must be implemented for other states, not implemented for the sake of the example
   extraReducers: (builder) => {
     builder.addCase(getLocations.fulfilled, (state, action) => {
       state.locations = stringToLocation(action.payload);
