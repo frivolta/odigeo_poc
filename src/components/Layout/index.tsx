@@ -6,6 +6,7 @@ import Image, { StaticImageData } from "next/image";
 interface LayoutProps {
   children: ReactNode;
   logo: StaticImageData;
+  title?: string;
 }
 const Layout: FC<LayoutProps> = ({ children, logo }) => {
   return (

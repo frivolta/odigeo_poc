@@ -10,7 +10,7 @@ const ITEMS_PER_PAGE = 10;
 const MAX_DESKTOP_PAGES = 3;
 
 const SearchPage = () => {
-  const filteredItineraries = useSearchItineraries();
+  const [filteredItineraries, isLoading, errors] = useSearchItineraries();
   const {
     currentPage,
     totalPages,
@@ -26,18 +26,23 @@ const SearchPage = () => {
       <Row className="flex-column h-100 g-0">
         <Col xs={12} className="h-100">
           {currentItineraries ? (
-            <ResultsList itineraries={currentItineraries} />
+            <ResultsList
+              itineraries={currentItineraries}
+              isLoading={isLoading}
+            />
           ) : null}
         </Col>
       </Row>
       <Row>
         <Col xs={12} className="d-flex justify-content-center">
-          <CustomPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            maxVisiblePages={MAX_DESKTOP_PAGES}
-            onPageChange={paginate}
-          />
+          {!isLoading && !errors.hasError && currentItineraries && (
+            <CustomPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              maxVisiblePages={MAX_DESKTOP_PAGES}
+              onPageChange={paginate}
+            />
+          )}
         </Col>
       </Row>
     </Layout>

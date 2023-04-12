@@ -93,5 +93,7 @@ export const selectAllItineraries = (state: RootState) =>
   state.itineraries.itineraries;
 export const selectFilteredItineraries = (state: RootState) =>
   state.itineraries.filteredItineraries;
+export const selectIsLoading = (state: RootState) => state.itineraries.loading;
+export const selectErrors = (state: RootState) => state.itineraries.error;
 
 export default ItinerarySlice.reducer;

@@ -13,7 +13,8 @@ const MAX_DESKTOP_PAGES = 3;
 
 export default function Home() {
   const [locations] = useLocations();
-  const [allItineraries, searchItineraries] = useItineraries();
+  const [allItineraries, isLoading, errors, searchItineraries] =
+    useItineraries();
   const {
     currentPage,
     totalPages,
@@ -38,18 +39,23 @@ export default function Home() {
         </Col>
         <Col xs={12} className="h-100">
           {currentItineraries ? (
-            <ResultsList itineraries={currentItineraries} />
+            <ResultsList
+              itineraries={currentItineraries}
+              isLoading={isLoading}
+            />
           ) : null}
         </Col>
-      </Row>{" "}
+      </Row>
       <Row>
         <Col xs={12} className="d-flex justify-content-center">
-          <CustomPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            maxVisiblePages={MAX_DESKTOP_PAGES}
-            onPageChange={paginate}
-          />
+          {!isLoading && !errors.hasError && currentItineraries && (
+            <CustomPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              maxVisiblePages={MAX_DESKTOP_PAGES}
+              onPageChange={paginate}
+            />
+          )}
         </Col>
       </Row>
     </Layout>
