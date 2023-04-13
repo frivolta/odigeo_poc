@@ -20,7 +20,7 @@ const ResultsList: FC<ResultsListProps> = memo(
             {!isLoading &&
               itineraries.length > 0 &&
               itineraries.map((itinerary) => (
-                <ItineraryCard itinerary={itinerary} />
+                <ItineraryCard key={itinerary.id} itinerary={itinerary} />
               ))}
             {isLoading && <Loader />}
             {errors?.hasError && <ErrorMessages messages={errors.messages} />}
@@ -30,5 +30,5 @@ const ResultsList: FC<ResultsListProps> = memo(
     );
   }
 );
-
+ResultsList.displayName = "ResultsList";
 export default ResultsList;

@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watchAll --coverage",
+    "test:unit:watchAll": "jest --watchAll --coverage",
+    "test:unit": "jest --coverage",
+    "test:e2e:open": "npx cypress open",
+    "test:e2e:run": "npx cypress run",
+    "test": "npm run test:unit && npm run test:e2e:run",
     "test-preview": "jest-preview"
   },
   "dependencies": {

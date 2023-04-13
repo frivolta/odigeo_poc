@@ -35,4 +35,6 @@ const ItineraryCard: FC<ItineraryCardProps> = memo(({ itinerary }) => {
   );
 });
 
+ItineraryCard.displayName = "ItineraryCard";
+
 export default ItineraryCard;

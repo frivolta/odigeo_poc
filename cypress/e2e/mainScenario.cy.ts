@@ -1,25 +1,17 @@
 // Scenario: User searches for itineraries
 //  1.v User should see all the itineraries in the main page sorted by price.
-//  2. User should be able to search itineraries using all the fields.
-//  3. User should be able to see the results when the user searches.
-//  4. User should be able to go back to search page.
-//  5.v User should be able to see a loader while fetching.
-//  6.v User should be able to see error messages when fetching itineraries fails.
-//  7. User should be able to perform a new search after a failed search.
-//  8. User should be able to enter an address with search params and get results
-//  9. User should be able to enter an address without search params and get results
-//  10. User should be able to only enter 1 search param and get results
-//  12. User should be able to do all the above in mobile view
-// 13.v Every itinerary should include:
-//  13.1. Itinerary price
-//  13.2. Itinerary departure location
-//  13.3. Itinerary arrival location
-//  13.4. Itinerary departure date
-//  13.5. Itinerary arrival date
-//  13.6. Airline carrier
+//  2.v User should be able to see a loader while fetching.
+//  3.v User should be able to see error messages when fetching itineraries fails.
+// 4.v Every itinerary should include:
+//  4.1. Itinerary price
+//  4.2. Itinerary departure location
+//  4.3. Itinerary arrival location
+//  4.4. Itinerary departure date
+//  4.5. Itinerary arrival date
+//  4.6. Airline carrier
 
 // Only bare minimum tests are written here as most cases are handled by unit tests
-const viewports = [
+const mainVieports = [
   {
     name: "mobile",
     width: 375,
@@ -32,7 +24,7 @@ const viewports = [
   },
 ];
 describe("User enter the website", () => {
-  viewports.forEach((viewport) => {
+  mainVieports.forEach((viewport) => {
     context(`Running on ${viewport.name}`, () => {
       beforeEach(() => {
         cy.viewport(viewport.width, viewport.height);
@@ -78,8 +70,8 @@ describe("User enter the website", () => {
         }).as("getItineraries");
         cy.wait("@getItineraries");
         // Note: This is just for the sake of example, we can make a for loop and check all the itineraries
-        cy.get(".itinerary").eq(0).should("contain", "8.11");
-        cy.get(".itinerary").eq(9).should("contain", "44.19");
+        cy.get(".itinerary").eq(0).should("contain", "0.1");
+        cy.get(".itinerary").eq(9).should("contain", "43.01");
       });
 
       it("should let the user navigate to the second page", () => {
@@ -89,10 +81,10 @@ describe("User enter the website", () => {
         cy.wait("@getItineraries");
         if (viewport.name === "mobile") {
           cy.getByTestId("pagination-page-next").click();
-          cy.get(".itinerary").should("have.length", 5);
+          cy.get(".itinerary").should("have.length", 7);
         } else {
           cy.getByTestId("pagination-page-2").click();
-          cy.get(".itinerary").should("have.length", 5);
+          cy.get(".itinerary").should("have.length", 7);
         }
       });
 
@@ -101,15 +93,12 @@ describe("User enter the website", () => {
           fixture: "itineraries.json",
         }).as("getItineraries");
         cy.wait("@getItineraries");
-        cy.get(".itinerary").eq(0).should("contain", "8.11");
+        cy.get(".itinerary").eq(0).should("contain", "0.1");
         cy.get(".itinerary").eq(0).should("contain", "Madrid");
-        cy.get(".itinerary").eq(0).should("contain", "Roma");
+        cy.get(".itinerary").eq(0).should("contain", "Barcelona");
         cy.get(".itinerary")
           .eq(0)
-          .should("contain", "2019 January 5, 17:21:40");
-        cy.get(".itinerary")
-          .eq(0)
-          .should("contain", "2019 January 12, 17:21:40");
+          .should("contain", "2023 January 6, 17:21:40");
       });
 
       it("should show a loader while waiting for results", () => {

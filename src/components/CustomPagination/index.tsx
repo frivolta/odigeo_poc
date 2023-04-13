@@ -19,6 +19,11 @@ const CustomPagination: React.FC<CustomPaginationProps> = memo(
       maxVisiblePages,
     });
 
+    // Note: this sucks and should not be done in production
+    Pagination.First.displayName = "Pagination.First";
+    Pagination.Last.displayName = "Pagination.Last";
+    Pagination.Next.displayName = "Pagination.Next";
+    Pagination.Prev.displayName = "Pagination.Prev";
     return (
       <Pagination
         size="lg"
@@ -61,5 +66,5 @@ const CustomPagination: React.FC<CustomPaginationProps> = memo(
     );
   }
 );
-
+CustomPagination.displayName = "CustomPagination";
 export default CustomPagination;

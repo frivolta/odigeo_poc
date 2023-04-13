@@ -41,6 +41,7 @@ const SearchPage = () => {
             <Button
               size="large"
               color="secondary"
+              testid="go-back-to-search"
               onClick={handleGoBackToSearch}
             >
               Go back to main search

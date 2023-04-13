@@ -12,4 +12,6 @@ const LocationCard: FC<{ title: string; date: string; location: string }> =
     );
   });
 
+LocationCard.displayName = "LocationCard";
+
 export default LocationCard;

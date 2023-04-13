@@ -26,15 +26,14 @@ export function formatDateTime(dateTime: DateTime): string {
 
   const { year, month, dayOfMonth, hourOfDay, minute, second } = dateTime;
   const formattedDate = `${year} ${monthNames[month]} ${dayOfMonth}, ${hourOfDay}:${minute}:${second}`;
-
   return formattedDate;
 }
 
 // Convert date to a DateTime object
 export function parseDateTime(date: Date): DateTime {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth();
-  const dayOfMonth = date.getUTCDate();
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const dayOfMonth = date.getDate();
   const hourOfDay = date.getUTCHours();
   const minute = date.getUTCMinutes();
   const second = date.getUTCSeconds();
@@ -48,6 +47,7 @@ export function parseDateTime(date: Date): DateTime {
     second,
   };
 }
+
 // Compare two DateTime objects
 export function compareDates(
   dateTime1: DateTime,

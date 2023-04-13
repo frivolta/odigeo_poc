@@ -328,5 +328,49 @@
         "departureLocation": "Tokio",
         "carrier": "Spanair",
         "price": 77.16
+    },
+    {
+        "arrivalDate": {
+            "year": 2023,
+            "month": 0,
+            "dayOfMonth": 12,
+            "hourOfDay": 17,
+            "minute": 21,
+            "second": 40
+        },
+        "departureDate": {
+            "year": 2023,
+            "month": 0,
+            "dayOfMonth": 6,
+            "hourOfDay": 17,
+            "minute": 21,
+            "second": 40
+        },
+        "arrivalLocation": "Barcelona",
+        "departureLocation": "Madrid",
+        "carrier": "Spanair",
+        "price": 0.1
+    },
+    {
+        "arrivalDate": {
+            "year": 2023,
+            "month": 0,
+            "dayOfMonth": 12,
+            "hourOfDay": 17,
+            "minute": 21,
+            "second": 40
+        },
+        "departureDate": {
+            "year": 2023,
+            "month": 0,
+            "dayOfMonth": 6,
+            "hourOfDay": 17,
+            "minute": 21,
+            "second": 40
+        },
+        "arrivalLocation": "Barcelona",
+        "departureLocation": "Madrid",
+        "carrier": "Spanair",
+        "price": 1000
     }
 ]

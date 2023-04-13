@@ -12,4 +12,6 @@ const PriceCard: FC<{ title: string; price: number }> = memo(
   }
 );
 
+PriceCard.displayName = "PriceCard";
+
 export default PriceCard;

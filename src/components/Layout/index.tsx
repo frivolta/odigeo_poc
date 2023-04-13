@@ -27,5 +27,5 @@ const Layout: FC<LayoutProps> = ({ children, logo }) => {
     </>
   );
 };
-
+Layout.displayName = "Layout";
 export default Layout;
