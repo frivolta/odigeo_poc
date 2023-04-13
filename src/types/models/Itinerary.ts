@@ -16,3 +16,6 @@ export type DraftItinerary = Omit<Itinerary, "id">;
 export const addIdToItineraries = (
   draftItinerary: DraftItinerary[]
 ): Itinerary[] => draftItinerary.map((i) => ({ ...i, id: v4() }));
+
+export const sortByPrice = (itineraries: Itinerary[]): Itinerary[] =>
+  itineraries.sort((a, b) => a.price - b.price);

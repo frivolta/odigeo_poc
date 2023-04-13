@@ -6,6 +6,7 @@ import {
   DraftItinerary,
   Itinerary,
   addIdToItineraries,
+  sortByPrice,
 } from "@/types/models/Itinerary";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -36,7 +37,8 @@ export const getItineraries = createAsyncThunk(
     });
     const data: DraftItinerary[] = await response.json();
     const itineraries = addIdToItineraries(data);
-    return filterItineraries(itineraries, searchCriteria);
+    // Note: This is just for the sake of example, in a real world scenario it can easy be a compose function
+    return sortByPrice(filterItineraries(itineraries, searchCriteria));
   }
 );
 
@@ -46,6 +48,7 @@ const filterItineraries = (
 ) => {
   const { departureLocation, arrivalLocation, departureDate } = searchCriteria;
 
+  // Note: This is just for the sake of example, in a real world scenario it would be a factory function so that more filters can be added easily
   return itineraries.filter((itinerary) => {
     const matchesDepartureLocation =
       !departureLocation ||
@@ -70,7 +73,7 @@ export const ItinerarySlice = createSlice({
     builder.addCase(getItineraries.fulfilled, (state, action) => {
       state.error = { hasError: false, messages: [] };
       state.loading = false;
-      state.itineraries = action.payload;
+      state.itineraries = sortByPrice(action.payload);
       state.filteredItineraries = action.payload;
     });
     builder.addCase(getItineraries.pending, (state, action) => {

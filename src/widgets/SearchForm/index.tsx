@@ -31,7 +31,7 @@ const SearchForm: FC<SearchFormProps> = ({
           className={styles.SearchFormInputs}
         >
           <CustomSelect
-            data-testid="departure-location"
+            testid="departure-location"
             controlId="departureLocation"
             options={locations}
             value={formState.departureLocation}
@@ -39,16 +39,16 @@ const SearchForm: FC<SearchFormProps> = ({
             placeholder="Departure Location"
           />
           <CustomSelect
-            date-testid="arrival-location"
+            testid="arrival-location"
             controlId="arrivalLocation"
             options={locations}
             value={formState.arrivalLocation}
             onChange={formState.setArrivalLocation}
             placeholder="Arrival Location"
           />
-          <Form.Group controlId="departureDate">
+          <Form.Group controlId="departureDate" data-testid="departure-date">
             <DatePicker
-              date-testid="departure-date"
+              data-testid="departure-date"
               selected={formState.departureDate}
               onChange={formState.setDepartureDate}
               dateFormat="yyyy-MM-dd"
@@ -61,6 +61,7 @@ const SearchForm: FC<SearchFormProps> = ({
             size="large"
             color="secondary"
             type="submit"
+            testid="search-button"
             disabled={isLoading}
           >
             {isLoading ? "Loading..." : "Search"}

@@ -9,6 +9,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   children: React.ReactNode;
   disabled?: boolean;
+  testid?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,10 +20,12 @@ const Button: React.FC<ButtonProps> = ({
   children,
   type = "button",
   disabled = false,
+  testid,
 }) => {
   const buttonClass = `${styles.Button} ${styles[size]} ${styles[variant]} ${styles[color]}`;
   return (
     <button
+      data-testid={testid}
       type={type}
       disabled={disabled}
       className={buttonClass}

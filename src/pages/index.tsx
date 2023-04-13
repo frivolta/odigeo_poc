@@ -7,7 +7,6 @@ import ResultsList from "@/widgets/ResultsList";
 import useItineraries from "@/lib/hooks/useAllItineraries/useAllItineraries";
 import CustomPagination from "@/components/CustomPagination";
 import { usePagination } from "@/lib/hooks/usePagination/usePagination";
-import Title from "@/components/Title";
 
 const ITEMS_PER_PAGE = 10;
 const MAX_DESKTOP_PAGES = 3;
@@ -43,6 +42,7 @@ export default function Home() {
             <ResultsList
               itineraries={currentItineraries}
               isLoading={isLoading}
+              errors={errors}
             />
           ) : null}
         </Col>

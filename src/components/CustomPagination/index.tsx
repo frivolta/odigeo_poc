@@ -20,18 +20,25 @@ const CustomPagination: React.FC<CustomPaginationProps> = memo(
     });
 
     return (
-      <Pagination size="lg" className={styles.Pagination}>
+      <Pagination
+        size="lg"
+        className={styles.Pagination}
+        data-testid="pagination"
+      >
         <Pagination.First
           className={styles.PageItem}
+          data-testid={`pagination-page-first`}
           onClick={() => onPageChange(1)}
         />
         <Pagination.Prev
           className={styles.PageItem}
+          data-testid={`pagination-page-previous`}
           onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         />
         {!isMobile &&
           visiblePages.map((page) => (
             <Pagination.Item
+              data-testid={`pagination-page-${page}`}
               key={page}
               active={page === currentPage}
               onClick={() => onPageChange(page)}
@@ -42,9 +49,11 @@ const CustomPagination: React.FC<CustomPaginationProps> = memo(
           ))}
         <Pagination.Next
           className={styles.PageItem}
+          data-testid={`pagination-page-next`}
           onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         />
         <Pagination.Last
+          data-testid={`pagination-page-last`}
           className={styles.PageItem}
           onClick={() => onPageChange(totalPages)}
         />

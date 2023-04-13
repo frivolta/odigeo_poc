@@ -58,10 +58,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   };
 
   return (
-    <Form.Group controlId={controlId}>
+    <Form.Group controlId={controlId} data-testid={testid}>
       {label && <Form.Label>{label}</Form.Label>}
       <Select
-        data-testid={testid}
         components={{
           DropdownIndicator: () => null,
           IndicatorSeparator: () => null,

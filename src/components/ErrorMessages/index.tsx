@@ -7,7 +7,7 @@ interface ErrorMessagesProps {
 
 const ErrorMessages: React.FC<ErrorMessagesProps> = ({ messages }) => {
   return (
-    <div className={styles.ErrorMessages}>
+    <div className={styles.ErrorMessages} data-testid="errors">
       {messages.map((message, index) => (
         <p key={index} className={styles.ErrorMessage}>
           {message}

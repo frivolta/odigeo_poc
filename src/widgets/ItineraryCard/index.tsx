@@ -11,7 +11,10 @@ interface ItineraryCardProps {
 
 const ItineraryCard: FC<ItineraryCardProps> = memo(({ itinerary }) => {
   return (
-    <div className={styles.ItineraryCard}>
+    <div
+      className={`itinerary ${styles.ItineraryCard}`}
+      data-testid={`itinerary-${itinerary.id}`}
+    >
       <div className={styles.ItineraryCardLocationWrapper}>
         <LocationCard
           title="DEPARTURE"
